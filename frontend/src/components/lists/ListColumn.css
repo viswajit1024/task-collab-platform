@@ -1,0 +1,140 @@
+/* frontend/src/components/lists/ListColumn.css */
+.list-column {
+  background: var(--gray-100);
+  border-radius: var(--radius-lg);
+  width: 280px;
+  min-width: 280px;
+  max-height: calc(100vh - 180px);
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-sm);
+}
+
+.list-dragging-over {
+  background: var(--gray-200);
+}
+
+.list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-sm) var(--space-md);
+  min-height: 44px;
+}
+
+.list-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-800);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex: 1;
+}
+
+.list-count {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--gray-500);
+  background: var(--gray-200);
+  padding: 1px 6px;
+  border-radius: 10px;
+}
+
+.list-title-input {
+  width: 100%;
+  padding: 4px 8px;
+  border: 2px solid var(--primary);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  background: var(--white);
+}
+
+.list-menu-wrapper {
+  position: relative;
+}
+
+.list-menu-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  font-size: 16px;
+  color: var(--gray-500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+}
+
+.list-menu-btn:hover {
+  background: var(--gray-200);
+  color: var(--gray-700);
+}
+
+.list-menu-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+}
+
+.list-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  min-width: 180px;
+  padding: var(--space-xs);
+  z-index: 11;
+}
+
+.list-menu button {
+  width: 100%;
+  text-align: left;
+  padding: 8px 12px;
+  font-size: 13px;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--gray-800);
+  transition: background var(--transition);
+}
+
+.list-menu button:hover {
+  background: var(--gray-100);
+}
+
+.list-menu-danger {
+  color: var(--danger) !important;
+}
+
+.list-tasks {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 var(--space-sm);
+  min-height: 8px;
+}
+
+.list-add-task-btn {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 8px var(--space-md);
+  font-size: 14px;
+  color: var(--gray-500);
+  background: transparent;
+  border-top: none;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  transition: all var(--transition);
+}
+
+.list-add-task-btn:hover {
+  background: var(--gray-200);
+  color: var(--gray-700);
+}

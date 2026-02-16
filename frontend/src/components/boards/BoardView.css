@@ -1,0 +1,141 @@
+/* frontend/src/components/boards/BoardView.css */
+.board-view {
+  min-height: calc(100vh - 48px);
+  display: flex;
+  flex-direction: column;
+}
+
+.board-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: var(--space-md) var(--space-lg);
+  background: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(4px);
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+.board-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.board-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--white);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.board-members {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.board-member {
+  position: relative;
+}
+
+.member-remove-btn {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--danger);
+  color: white;
+  font-size: 8px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid white;
+}
+
+.board-member:hover .member-remove-btn {
+  display: flex;
+}
+
+.btn-add-member {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.3);
+  color: var(--white);
+  border: 2px dashed rgba(255, 255, 255, 0.5);
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.btn-add-member:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.add-member-form {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+}
+
+.add-member-form .input {
+  width: 220px;
+  padding: 4px 8px;
+  font-size: 13px;
+}
+
+.board-header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.board-header-right .search-bar {
+  max-width: 250px;
+}
+
+.board-header-right .search-input {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: transparent;
+  color: white;
+}
+
+.board-header-right .search-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.board-header-right .search-input:focus {
+  background: var(--white);
+  color: var(--gray-900);
+  border-color: var(--white);
+}
+
+.board-activity-btn {
+  color: var(--white) !important;
+  white-space: nowrap;
+}
+
+.board-activity-btn:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+}
+
+.board-lists-container {
+  flex: 1;
+  overflow-x: auto;
+  padding: var(--space-md) var(--space-lg);
+  padding-bottom: var(--space-xl);
+}
+
+.board-lists {
+  display: flex;
+  gap: var(--space-md);
+  align-items: flex-start;
+  min-height: 200px;
+}

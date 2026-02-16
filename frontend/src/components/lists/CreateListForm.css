@@ -1,0 +1,33 @@
+.create-list-btn {
+  min-width: 280px;
+  padding: 12px var(--space-md);
+  background: rgba(255, 255, 255, 0.3);
+  color: var(--white);
+  border-radius: var(--radius-lg);
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  transition: background var(--transition);
+  white-space: nowrap;
+}
+
+.create-list-btn:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.create-list-form {
+  min-width: 280px;
+  background: var(--gray-100);
+  border-radius: var(--radius-lg);
+  padding: var(--space-sm);
+}
+
+.create-list-form .input {
+  margin-bottom: var(--space-sm);
+}
+
+.create-list-actions {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+}

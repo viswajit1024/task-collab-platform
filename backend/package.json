@@ -31,7 +31,7 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "setupFilesAfterSetup": ["./tests/setup.js"],
+    "setupFilesAfterEnv": ["./tests/setup.js"],
     "testTimeout": 30000
   }
 }

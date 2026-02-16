@@ -1,0 +1,26 @@
+.create-task-form {
+  padding: 0 var(--space-sm) var(--space-sm);
+}
+
+.create-task-input {
+  width: 100%;
+  padding: var(--space-sm);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  resize: none;
+  box-shadow: 0 1px 0 rgba(9, 30, 66, 0.13);
+  font-family: var(--font-family);
+}
+
+.create-task-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--primary);
+}
+
+.create-task-actions {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+  margin-top: var(--space-sm);
+}
