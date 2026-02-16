@@ -51,9 +51,6 @@ exports.getBoards = async (req, res, next) => {
 exports.getBoard = async (req, res, next) => {
   try {
     const board = await Board.findById(req.params.id)
-      .populate('owner', 'name email avatar')
-      .populate('members.user', 'name email avatar');
-
     if (!board) {
       return ApiResponse.error(res, 'Board not found', 404);
     }
@@ -61,6 +58,10 @@ exports.getBoard = async (req, res, next) => {
     if (!board.isMember(req.userId)) {
       return ApiResponse.error(res, 'Access denied', 403);
     }
+
+     // Populate after the check
+    await board.populate('owner', 'name email avatar');
+    await board.populate('members.user', 'name email avatar');
 
     // Get lists with tasks
     const lists = await List.find({ board: board._id, isArchived: false })

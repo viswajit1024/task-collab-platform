@@ -1,24 +1,13 @@
-// backend/tests/auth.test.js
 const request = require('supertest');
 const app = require('../src/app');
 const User = require('../src/models/User');
+jest.mock('../src/services/socketService');
+jest.mock('../src/services/activityService', () => ({
+  logActivity: jest.fn()
+}));
 
-// Inline setup for this test file
-const { MongoMemoryServer } = require('mongodb-memory-server');
-const mongoose = require('mongoose');
 
-let mongoServer;
 
-beforeAll(async () => {
-  mongoServer = await MongoMemoryServer.create();
-  await mongoose.connect(mongoServer.getUri());
-});
-
-afterAll(async () => {
-  await mongoose.connection.dropDatabase();
-  await mongoose.connection.close();
-  await mongoServer.stop();
-});
 
 afterEach(async () => {
   await User.deleteMany({});

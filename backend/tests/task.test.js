@@ -4,22 +4,15 @@ const User = require('../src/models/User');
 const Board = require('../src/models/Board');
 const List = require('../src/models/List');
 const Task = require('../src/models/Task');
-const { MongoMemoryServer } = require('mongodb-memory-server');
-const mongoose = require('mongoose');
+jest.mock('../src/services/socketService');
+jest.mock('../src/services/activityService', () => ({
+  logActivity: jest.fn()
+}));
 
-let mongoServer;
+
+
 let token, boardId, listId;
 
-beforeAll(async () => {
-  mongoServer = await MongoMemoryServer.create();
-  await mongoose.connect(mongoServer.getUri());
-});
-
-afterAll(async () => {
-  await mongoose.connection.dropDatabase();
-  await mongoose.connection.close();
-  await mongoServer.stop();
-});
 
 beforeEach(async () => {
   await Promise.all([

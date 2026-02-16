@@ -2,23 +2,15 @@ const request = require('supertest');
 const app = require('../src/app');
 const User = require('../src/models/User');
 const Board = require('../src/models/Board');
-const { MongoMemoryServer } = require('mongodb-memory-server');
-const mongoose = require('mongoose');
+jest.mock('../src/services/socketService');
+jest.mock('../src/services/activityService', () => ({
+  logActivity: jest.fn()
+}));
 
-let mongoServer;
+
 let token;
 let userId;
 
-beforeAll(async () => {
-  mongoServer = await MongoMemoryServer.create();
-  await mongoose.connect(mongoServer.getUri());
-});
-
-afterAll(async () => {
-  await mongoose.connection.dropDatabase();
-  await mongoose.connection.close();
-  await mongoServer.stop();
-});
 
 beforeEach(async () => {
   await User.deleteMany({});
