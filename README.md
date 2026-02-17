@@ -88,7 +88,7 @@ npm start
 
 # 🔐 Demo Credentials
 
-| User   | Email              | Password     |
+| User   | Email             | Password    |
 |--------|-------------------|-------------|
 | User 1 | demo@example.com  | password123 |
 | User 2 | alice@example.com | password123 |
@@ -135,7 +135,7 @@ npm start
 
 ## 📝 Task Endpoints
 
-| Method | Endpoint                                | Description                  |
+| Method | Endpoint                                 | Description                  |
 |--------|------------------------------------------|------------------------------|
 | GET    | `/api/tasks?boardId=&search=&page=`      | Search tasks                 |
 | POST   | `/api/tasks`                             | Create task                  |
@@ -227,13 +227,13 @@ npm start
 │  │ email (idx)  │   ├────│ owner (ref→User)     │               │
 │  │ password     │   │    │ description          │               │
 │  │ avatar       │   │    │ background           │               │
-│  │ createdAt    │   │    │ members[]:            │               │
+│  │ createdAt    │   │    │ members[]:           │               │
 │  │ updatedAt    │   ├────│   user (ref→User)    │               │
 │  └──────────────┘   │    │   role               │               │
-│                     │    │   addedAt             │               │
-│                     │    │ isArchived            │               │
-│                     │    │ createdAt             │               │
-│                     │    │ updatedAt             │               │
+│                     │    │   addedAt            │               │
+│                     │    │ isArchived           │               │
+│                     │    │ createdAt            │               │
+│                     │    │ updatedAt            │               │
 │                     │    └──────────┬───────────┘               │
 │                     │               │                           │
 │                     │    ┌──────────▼───────────┐               │
@@ -283,14 +283,14 @@ npm start
 │                          └──────────────────────┘               │
 │                                                                 │
 │  INDEXES:                                                       │
-│  ─ users:   { email: 1 }, { name: 'text', email: 'text' }     │
-│  ─ boards:  { owner: 1 }, { 'members.user': 1 }               │
-│  ─ lists:   { board: 1, position: 1 }                          │
-│  ─ tasks:   { list: 1, position: 1 }, { board: 1 },           │
-│             { assignees: 1 }, { dueDate: 1 },                  │
-│             { board: 1, title: 'text', description: 'text' }  │
-│  ─ activities: { board: 1, createdAt: -1 },                   │
-│               { createdAt: 1 } (TTL: 90 days)                 │
+│  ─ users:   { email: 1 }, { name: 'text', email: 'text' }       │
+│  ─ boards:  { owner: 1 }, { 'members.user': 1 }                 │
+│  ─ lists:   { board: 1, position: 1 }                           │
+│  ─ tasks:   { list: 1, position: 1 }, { board: 1 },             │
+│             { assignees: 1 }, { dueDate: 1 },                   │
+│             { board: 1, title: 'text', description: 'text' }    │
+│  ─ activities: { board: 1, createdAt: -1 },                     │
+│               { createdAt: 1 } (TTL: 90 days)                   │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -327,11 +327,17 @@ docker run -d -p 27017:27017 --name taskcollab_mongo mongo:7
 ### Step 3: Seed the Database
 
 ```bash
+#Create .env like the .env.example file shown for both the frontend and the backend
+```
+
+### Step 4: Seed the Database
+
+```bash
 cd backend
 npm run seed
 ```
 
-### Step 4: Start Backend
+### Step 5: Start Backend
 
 ```bash
 cd backend
@@ -339,7 +345,7 @@ npm run dev
 # Server runs on http://localhost:5000
 ```
 
-### Step 5: Start Frontend
+### Step 6: Start Frontend
 
 ```bash
 cd frontend
@@ -347,7 +353,7 @@ npm start
 # App runs on http://localhost:3000
 ```
 
-### Step 6: Run Tests
+### Step 7: Run Tests
 
 ```bash
 # Backend tests
