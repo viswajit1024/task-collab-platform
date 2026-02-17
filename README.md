@@ -324,7 +324,7 @@ mongod
 docker run -d -p 27017:27017 --name taskcollab_mongo mongo:7
 ```
 
-### Step 3: Seed the Database
+### Step 3: Configure the Environment Variable for the project
 
 ```bash
 #Create .env like the .env.example file shown for both the frontend and the backend
