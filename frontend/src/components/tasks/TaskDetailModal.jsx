@@ -4,13 +4,12 @@ import { updateTask, deleteTask, assignTask } from '../../store/slices/taskSlice
 import { closeTaskModal } from '../../store/slices/uiSlice';
 import Avatar from '../common/Avatar';
 import { PRIORITY_CONFIG } from '../../utils/constants';
-import { formatDateTime, timeAgo } from '../../utils/helpers';
+import { timeAgo } from '../../utils/helpers';
 import toast from 'react-hot-toast';
 import './TaskDetailModal.css';
 
 const TaskDetailModal = ({ task: initialTask, onClose, board }) => {
   const dispatch = useDispatch();
-  const { user } = useSelector(state => state.auth);
   const { lists } = useSelector(state => state.boards);
 
   // Find the latest version of the task from lists

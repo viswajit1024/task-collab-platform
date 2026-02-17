@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { createList } from '../../store/slices/listSlice';
-import { socketListCreated } from '../../store/slices/boardSlice';
 import toast from 'react-hot-toast';
 import './CreateListForm.css';
 

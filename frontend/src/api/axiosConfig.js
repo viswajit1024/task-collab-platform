@@ -37,6 +37,8 @@ api.interceptors.response.use(
 
     if (error.response?.status >= 500) {
       toast.error('Server error. Please try again later.');
+    } else {
+      toast.error(message);
     }
 
     return Promise.reject(error);
