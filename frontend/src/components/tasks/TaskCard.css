@@ -109,3 +109,42 @@
   margin-left: 4px;
   align-self: center;
 }
+
+@media (max-width: 768px) {
+  .task-card {
+    padding: 6px 8px;
+    margin-bottom: 6px;
+  }
+
+  .task-card-title {
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+
+  .task-labels {
+    gap: 2px;
+    margin-bottom: 4px;
+  }
+
+  .task-label {
+    padding: 1px 4px;
+    font-size: 9px;
+  }
+
+  .task-card-meta {
+    gap: 4px;
+  }
+
+  .task-badge {
+    padding: 1px 4px;
+    font-size: 10px;
+  }
+
+  .task-card-assignees {
+    gap: 2px;
+  }
+
+  .task-card-assignees .avatar {
+    margin-left: -6px;
+  }
+}

@@ -76,3 +76,45 @@
   color: var(--white);
   background: rgba(255, 255, 255, 0.1);
 }
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 var(--space-md);
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .navbar-left {
+    gap: var(--space-md);
+    flex: 1;
+  }
+
+  .navbar-brand {
+    font-size: 14px;
+    gap: 4px;
+  }
+
+  .navbar-logo {
+    font-size: 18px;
+  }
+
+  .navbar-link {
+    display: none;
+  }
+
+  .navbar-username {
+    display: none;
+  }
+
+  .navbar-right {
+    gap: var(--space-xs);
+  }
+
+  .navbar-auth {
+    gap: 4px;
+  }
+
+  .navbar .btn {
+    padding: 4px 8px;
+  }
+}

@@ -24,3 +24,25 @@
   align-items: center;
   margin-top: var(--space-sm);
 }
+
+@media (max-width: 768px) {
+  .create-task-form {
+    padding: 0 6px 6px;
+  }
+
+  .create-task-input {
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  .create-task-actions {
+    gap: 4px;
+    margin-top: 6px;
+  }
+
+  .create-task-actions .btn {
+    padding: 4px 8px;
+    font-size: 11px;
+    flex: 1;
+  }
+}

@@ -138,3 +138,56 @@
   background: var(--gray-200);
   color: var(--gray-700);
 }
+
+@media (max-width: 768px) {
+  .list-column {
+    width: 100%;
+    min-width: 100%;
+    max-height: calc(100vh - 160px);
+  }
+
+  .list-header {
+    padding: var(--space-sm) var(--space-sm);
+    min-height: 40px;
+  }
+
+  .list-title {
+    font-size: 12px;
+    gap: 4px;
+  }
+
+  .list-count {
+    font-size: 10px;
+    padding: 0 4px;
+  }
+
+  .list-menu-btn {
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+  }
+
+  .list-title-input {
+    font-size: 12px;
+    padding: 4px 6px;
+  }
+
+  .list-menu {
+    min-width: 140px;
+    padding: 4px;
+  }
+
+  .list-menu button {
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+
+  .list-tasks {
+    padding: 0 4px;
+  }
+
+  .list-add-task-btn {
+    padding: 8px var(--space-sm);
+    font-size: 12px;
+  }
+}

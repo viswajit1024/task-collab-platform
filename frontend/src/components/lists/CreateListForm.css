@@ -31,3 +31,31 @@
   gap: var(--space-sm);
   align-items: center;
 }
+
+@media (max-width: 768px) {
+  .create-list-btn {
+    min-width: 100%;
+    font-size: 12px;
+    padding: 8px var(--space-sm);
+  }
+
+  .create-list-form {
+    min-width: 100%;
+    padding: var(--space-xs);
+  }
+
+  .create-list-form .input {
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+
+  .create-list-actions {
+    gap: 4px;
+  }
+
+  .create-list-actions .btn {
+    padding: 4px 8px;
+    font-size: 11px;
+    flex: 1;
+  }
+}

@@ -106,7 +106,8 @@ const BoardView = () => {
               className="btn-add-member"
               onClick={() => setShowAddMember(!showAddMember)}
             >
-              + Add Member
+              <span className="mobile-only">+</span>
+              <span className="desktop-only">+ Add Member</span>
             </button>
           </div>
           {showAddMember && (

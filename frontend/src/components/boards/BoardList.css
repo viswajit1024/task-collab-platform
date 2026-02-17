@@ -30,3 +30,32 @@
   font-size: 24px;
   font-weight: 300;
 }
+
+@media (max-width: 1024px) {
+  .board-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: var(--space-sm);
+  }
+}
+
+@media (max-width: 768px) {
+  .board-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: var(--space-sm);
+  }
+
+  .board-card-new {
+    font-size: 12px;
+    gap: 4px;
+  }
+
+  .board-card-new-icon {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .board-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

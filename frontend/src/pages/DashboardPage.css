@@ -48,3 +48,46 @@
   font-size: 14px;
   color: var(--gray-600);
 }
+
+@media (max-width: 768px) {
+  .dashboard-page {
+    padding: var(--space-md);
+  }
+
+  .dashboard-container {
+    max-width: 100%;
+  }
+
+  .dashboard-header {
+    margin-bottom: var(--space-lg);
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .dashboard-title {
+    font-size: 22px;
+  }
+
+  .dashboard-subtitle {
+    font-size: 12px;
+  }
+
+  .dashboard-actions {
+    width: 100%;
+    gap: var(--space-sm);
+  }
+
+  .dashboard-actions .btn {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .dashboard-pagination {
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+  }
+
+  .pagination-info {
+    font-size: 12px;
+  }
+}

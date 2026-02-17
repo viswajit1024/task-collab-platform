@@ -75,3 +75,31 @@
   opacity: 0.8;
   margin-left: 4px;
 }
+
+@media (max-width: 768px) {
+  .board-card {
+    padding: var(--space-sm);
+    min-height: 80px;
+  }
+
+  .board-card-title {
+    font-size: 14px;
+  }
+
+  .board-card-desc {
+    font-size: 11px;
+  }
+
+  .board-card-footer {
+    margin-top: var(--space-sm);
+  }
+
+  .board-card-member-dot {
+    width: 20px;
+    height: 20px;
+  }
+
+  .board-card-member-more {
+    font-size: 10px;
+  }
+}

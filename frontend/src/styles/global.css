@@ -168,3 +168,29 @@ input, textarea, select {
 .flex-center { display: flex; align-items: center; justify-content: center; }
 .gap-sm { gap: var(--space-sm); }
 .gap-md { gap: var(--space-md); }
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+
+  .btn {
+    padding: var(--space-xs) var(--space-sm);
+    font-size: 12px;
+  }
+
+  .btn-sm {
+    padding: 2px 4px;
+    font-size: 10px;
+  }
+
+  .input, .textarea {
+    font-size: 12px;
+    padding: var(--space-xs) 8px;
+  }
+
+  .label {
+    font-size: 10px;
+  }
+}
