@@ -209,3 +209,174 @@ npm start
 - In-memory socket management (Redis needed for scaling)
 - No file attachments
 - CSS instead of CSS-in-JS
+
+---
+
+## Database Schema Diagram
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                        DATABASE SCHEMA                          │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  ┌──────────────┐        ┌──────────────────────┐               │
+│  │    USERS     │        │       BOARDS         │               │
+│  ├──────────────┤        ├──────────────────────┤               │
+│  │ _id          │←──┐    │ _id                  │               │
+│  │ name         │   │    │ title                │               │
+│  │ email (idx)  │   ├────│ owner (ref→User)     │               │
+│  │ password     │   │    │ description          │               │
+│  │ avatar       │   │    │ background           │               │
+│  │ createdAt    │   │    │ members[]:            │               │
+│  │ updatedAt    │   ├────│   user (ref→User)    │               │
+│  └──────────────┘   │    │   role               │               │
+│                     │    │   addedAt             │               │
+│                     │    │ isArchived            │               │
+│                     │    │ createdAt             │               │
+│                     │    │ updatedAt             │               │
+│                     │    └──────────┬───────────┘               │
+│                     │               │                           │
+│                     │    ┌──────────▼───────────┐               │
+│                     │    │       LISTS          │               │
+│                     │    ├──────────────────────┤               │
+│                     │    │ _id                  │               │
+│                     │    │ title                │               │
+│                     │    │ board (ref→Board)    │──idx──┐       │
+│                     │    │ position (idx)       │       │       │
+│                     │    │ isArchived           │       │       │
+│                     │    │ createdAt            │       │       │
+│                     │    │ updatedAt            │       │       │
+│                     │    └──────────┬───────────┘       │       │
+│                     │               │                   │       │
+│                     │    ┌──────────▼───────────┐       │       │
+│                     │    │       TASKS          │       │       │
+│                     │    ├──────────────────────┤       │       │
+│                     │    │ _id                  │       │       │
+│                     │    │ title (text idx)     │       │       │
+│                     │    │ description          │       │       │
+│                     │    │ list (ref→List)      │──idx  │       │
+│                     │    │ board (ref→Board)    │───────┘       │
+│                     │    │ position (idx)       │               │
+│                     │    │ priority (idx)       │               │
+│                     │    │ labels[]             │               │
+│                     ├────│ assignees[] (ref→User)│              │
+│                     │    │ dueDate (idx)        │               │
+│                     │    │ isCompleted          │               │
+│                     │    │ isArchived           │               │
+│                     ├────│ createdBy (ref→User) │               │
+│                     │    │ createdAt            │               │
+│                     │    │ updatedAt            │               │
+│                     │    └──────────────────────┘               │
+│                     │                                           │
+│                     │    ┌──────────────────────┐               │
+│                     │    │    ACTIVITIES        │               │
+│                     │    ├──────────────────────┤               │
+│                     │    │ _id                  │               │
+│                     │    │ board (ref→Board)    │──idx          │
+│                     ├────│ user (ref→User)      │               │
+│                          │ action (enum)        │               │
+│                          │ entityType           │               │
+│                          │ entityId             │               │
+│                          │ entityTitle          │               │
+│                          │ details (Mixed)      │               │
+│                          │ createdAt (TTL:90d)  │──idx          │
+│                          └──────────────────────┘               │
+│                                                                 │
+│  INDEXES:                                                       │
+│  ─ users:   { email: 1 }, { name: 'text', email: 'text' }     │
+│  ─ boards:  { owner: 1 }, { 'members.user': 1 }               │
+│  ─ lists:   { board: 1, position: 1 }                          │
+│  ─ tasks:   { list: 1, position: 1 }, { board: 1 },           │
+│             { assignees: 1 }, { dueDate: 1 },                  │
+│             { board: 1, title: 'text', description: 'text' }  │
+│  ─ activities: { board: 1, createdAt: -1 },                   │
+│               { createdAt: 1 } (TTL: 90 days)                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Setup Steps
+
+### Step 1: Clone and Install
+
+```bash
+# Clone the repository
+git clone <your-repo-url>
+cd task-collab-platform
+
+# Install backend dependencies
+cd backend
+npm install
+
+# Install frontend dependencies
+cd ../frontend
+npm install
+```
+
+### Step 2: Start MongoDB
+
+```bash
+# Option A: If MongoDB is installed locally
+mongod
+
+# Option B: Using Docker
+docker run -d -p 27017:27017 --name taskcollab_mongo mongo:7
+```
+
+### Step 3: Seed the Database
+
+```bash
+cd backend
+npm run seed
+```
+
+### Step 4: Start Backend
+
+```bash
+cd backend
+npm run dev
+# Server runs on http://localhost:5000
+```
+
+### Step 5: Start Frontend
+
+```bash
+cd frontend
+npm start
+# App runs on http://localhost:3000
+```
+
+### Step 6: Run Tests
+
+```bash
+# Backend tests
+cd backend
+npm test
+
+# Frontend tests
+cd frontend
+npm test
+```
+
+### Docker Option (All at once)
+
+```bash
+docker-compose up --build
+# Then seed: docker exec -it taskcollab_backend node src/seed.js
+```
+
+---
+
+This gives you a fully functional real-time task collaboration platform with:
+
+- **Authentication** (JWT signup/login)
+- **Board management** with colored backgrounds
+- **Lists** with create, rename, delete
+- **Tasks** with drag-and-drop, priorities, due dates, labels, assignees
+- **Real-time updates** via Socket.IO (all users see changes instantly)
+- **Activity feed** with paginated history
+- **Search** across boards and tasks
+- **Pagination** on boards and activities
+- **Member management** (invite by email, role-based permissions)
+- **Test coverage** for API endpoints, components, and Redux store
