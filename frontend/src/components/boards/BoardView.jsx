@@ -1,6 +1,7 @@
 // frontend/src/components/boards/BoardView.jsx
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { DragDropContext, Droppable } from '@hello-pangea/dnd';
 import ListColumn from '../lists/ListColumn';
 import CreateListForm from '../lists/CreateListForm';
@@ -9,7 +10,7 @@ import ActivityFeed from '../activity/ActivityFeed';
 import Avatar from '../common/Avatar';
 import SearchBar from '../common/SearchBar';
 import { useDragDrop } from '../../hooks/useDragDrop';
-import { addMember, removeMember } from '../../store/slices/boardSlice';
+import { addMember, removeMember, deleteBoard } from '../../store/slices/boardSlice';
 import { openTaskModal, closeTaskModal, toggleSidebar } from '../../store/slices/uiSlice';
 import toast from 'react-hot-toast';
 import './BoardView.css';
@@ -20,6 +21,7 @@ const BoardView = () => {
   const { isTaskModalOpen, selectedTask, isSidebarOpen } = useSelector(state => state.ui);
   const { user } = useSelector(state => state.auth);
   const { handleDragEnd } = useDragDrop();
+  const navigate = useNavigate();
 
   const [memberEmail, setMemberEmail] = useState('');
   const [showAddMember, setShowAddMember] = useState(false);
@@ -54,6 +56,17 @@ const BoardView = () => {
       if (result.type === 'boards/removeMember/fulfilled') {
         toast.success('Member removed');
       }
+    }
+  };
+
+  const handleDeleteBoard = async () => {
+    if (!window.confirm('Delete this board and all its data?')) return;
+    const result = await dispatch(deleteBoard(currentBoard._id));
+    if (result.type === 'boards/deleteBoard/fulfilled') {
+      toast.success('Board deleted');
+      navigate('/dashboard');
+    } else {
+      toast.error(result.payload || 'Failed to delete board');
     }
   };
 
@@ -93,7 +106,7 @@ const BoardView = () => {
               className="btn-add-member"
               onClick={() => setShowAddMember(!showAddMember)}
             >
-              +
+              + Add Member
             </button>
           </div>
           {showAddMember && (
@@ -122,6 +135,15 @@ const BoardView = () => {
           >
             📋 Activity
           </button>
+          {currentBoard.owner?._id === user?._id && (
+            <button
+              className="btn btn-danger"
+              onClick={handleDeleteBoard}
+              title="Delete board"
+            >
+              🗑️ Delete Board
+            </button>
+          )}
         </div>
       </div>
 

@@ -5,14 +5,13 @@ const SOCKET_URL = process.env.REACT_APP_SOCKET_URL || 'http://localhost:5000';
 let socket = null;
 
 export const connectSocket = (token) => {
-  if (socket?.connected) return socket;
+  // Only create one socket instance
+  if (socket) return socket;
 
   socket = io(SOCKET_URL, {
     auth: { token },
-    transports: ['websocket', 'polling'],
-    reconnection: true,
-    reconnectionAttempts: 10,
-    reconnectionDelay: 1000,
+    transports: ['websocket'],
+    reconnection: false, // Disabled - connection lifecycle is managed by App.js
   });
 
   socket.on('connect', () => {

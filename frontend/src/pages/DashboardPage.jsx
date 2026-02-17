@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useBoard } from '../hooks/useBoard';
-import { useSocketConnection } from '../hooks/useSocket';
 import BoardList from '../components/boards/BoardList';
 import CreateBoardModal from '../components/boards/CreateBoardModal';
 import SearchBar from '../components/common/SearchBar';
@@ -12,9 +11,6 @@ const DashboardPage = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-
-  // Initialize socket connection
-  useSocketConnection();
 
   useEffect(() => {
     fetchBoards({ page: currentPage, search: searchQuery });

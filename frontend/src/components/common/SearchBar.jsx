@@ -9,7 +9,7 @@ const SearchBar = ({ onSearch, placeholder = 'Search...' }) => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     timeoutRef.current = setTimeout(() => {
       onSearch(value);
-    }, 300);
+    }, 500);
   }, [onSearch]);
 
   const handleChange = (e) => {

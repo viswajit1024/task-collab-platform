@@ -61,9 +61,9 @@
 }
 
 .btn-add-member {
-  width: 28px;
+  width: 150px;
   height: 28px;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-lg);
   background: rgba(255, 255, 255, 0.3);
   color: var(--white);
   border: 2px dashed rgba(255, 255, 255, 0.5);

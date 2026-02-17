@@ -1,9 +1,10 @@
 // frontend/src/hooks/useSocket.js
-import { useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { connectSocket, disconnectSocket, getSocket, joinBoard, leaveBoard } from '../socket/socketClient';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { getSocket, joinBoard, leaveBoard } from '../socket/socketClient';
 import {
   socketBoardUpdated,
+  socketBoardDeleted,
   socketListCreated,
   socketListUpdated,
   socketListDeleted,
@@ -18,22 +19,9 @@ import { addOnlineUser, removeOnlineUser } from '../store/slices/uiSlice';
 
 export const useSocket = (boardId) => {
   const dispatch = useDispatch();
-  const { token } = useSelector(state => state.auth);
-  const socketRef = useRef(null);
 
   useEffect(() => {
-    if (!token) return;
-
-    const socket = connectSocket(token);
-    socketRef.current = socket;
-
-    return () => {
-      // Don't disconnect globally - just when component unmounts
-    };
-  }, [token]);
-
-  useEffect(() => {
-    if (!boardId || !token) return;
+    if (!boardId) return;
 
     const socket = getSocket();
     if (!socket) return;
@@ -44,6 +32,7 @@ export const useSocket = (boardId) => {
     // Set up event listeners
     const handlers = {
       'board:updated': (data) => dispatch(socketBoardUpdated(data)),
+      'board:deleted': (data) => dispatch(socketBoardDeleted(data)),
       'list:created': (data) => dispatch(socketListCreated(data)),
       'list:updated': (data) => dispatch(socketListUpdated(data)),
       'list:deleted': (data) => dispatch(socketListDeleted(data)),
@@ -67,20 +56,5 @@ export const useSocket = (boardId) => {
         socket.off(event, handler);
       });
     };
-  }, [boardId, token, dispatch]);
-
-  return socketRef;
-};
-
-export const useSocketConnection = () => {
-  const { token } = useSelector(state => state.auth);
-
-  useEffect(() => {
-    if (token) {
-      connectSocket(token);
-    }
-    return () => {
-      disconnectSocket();
-    };
-  }, [token]);
+  }, [boardId, dispatch]);
 };

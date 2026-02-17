@@ -104,6 +104,16 @@ const boardSlice = createSlice({
     socketBoardUpdated: (state, action) => {
       state.currentBoard = action.payload;
     },
+    socketBoardDeleted: (state, action) => {
+      // payload: { boardId }
+      const { boardId } = action.payload || {};
+      if (!boardId) return;
+      state.boards = state.boards.filter(b => b._id !== boardId);
+      if (state.currentBoard && state.currentBoard._id === boardId) {
+        state.currentBoard = null;
+        state.lists = [];
+      }
+    },
     socketListCreated: (state, action) => {
       state.lists.push(action.payload);
     },
@@ -270,6 +280,7 @@ const boardSlice = createSlice({
 export const {
   clearCurrentBoard,
   socketBoardUpdated,
+  socketBoardDeleted,
   socketListCreated,
   socketListUpdated,
   socketListDeleted,

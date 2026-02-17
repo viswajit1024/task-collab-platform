@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadUser } from './store/slices/authSlice';
+import { connectSocket, disconnectSocket } from './socket/socketClient';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import Navbar from './components/common/Navbar';
 import Loader from './components/common/Loader';
@@ -13,14 +14,25 @@ import BoardPage from './pages/BoardPage';
 
 function App() {
   const dispatch = useDispatch();
-  const { isLoading, isAuthenticated } = useSelector(state => state.auth);
+  const { isLoading, isAuthenticated, token } = useSelector(state => state.auth);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
+    const storedToken = localStorage.getItem('token');
+    if (storedToken) {
       dispatch(loadUser());
     }
   }, [dispatch]);
+
+  // Global socket connection - managed in ONE place only
+  useEffect(() => {
+    if (token) {
+      connectSocket(token);
+    }
+
+    return () => {
+      disconnectSocket();
+    };
+  }, [token]);
 
   if (isLoading && localStorage.getItem('token')) {
     return <Loader fullScreen />;

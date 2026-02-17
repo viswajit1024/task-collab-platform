@@ -1,5 +1,6 @@
 import boardReducer, {
   clearCurrentBoard,
+  socketBoardDeleted,
   socketListCreated,
   socketListDeleted,
   socketTaskCreated,
@@ -73,5 +74,30 @@ describe('boardSlice', () => {
     const result = boardReducer(state, socketTaskDeleted({ taskId: 't1', listId: 'l1' }));
     expect(result.lists[0].tasks).toHaveLength(1);
     expect(result.lists[0].tasks[0]._id).toBe('t2');
+  });
+
+  test('should remove board via socket', () => {
+    const state = {
+      ...initialState,
+      boards: [{ _id: 'b1' }, { _id: 'b2' }],
+      currentBoard: { _id: 'b1', title: 'Board 1' }
+    };
+
+    const result = boardReducer(state, socketBoardDeleted({ boardId: 'b1' }));
+    expect(result.boards).toHaveLength(1);
+    expect(result.boards[0]._id).toBe('b2');
+    expect(result.currentBoard).toBeNull();
+  });
+
+  test('should remove board on deleteBoard.fulfilled', () => {
+    const state = {
+      ...initialState,
+      boards: [{ _id: 'b1' }, { _id: 'b2' }]
+    };
+
+    const action = { type: 'boards/deleteBoard/fulfilled', payload: 'b2' };
+    const result = boardReducer(state, action);
+    expect(result.boards).toHaveLength(1);
+    expect(result.boards[0]._id).toBe('b1');
   });
 });
